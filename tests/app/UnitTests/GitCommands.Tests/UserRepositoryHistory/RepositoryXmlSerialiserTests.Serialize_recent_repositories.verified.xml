@@ -1,0 +1,16 @@
+﻿<RepositoryHistory>
+  <Repositories>
+    <Repository>
+      <Anchor>None</Anchor>
+      <Path>C:\Development\gitextensions\</Path>
+    </Repository>
+    <Repository>
+      <Anchor>Pinned</Anchor>
+      <Path>C:\Development\gitextensions\Externals\NBug\</Path>
+    </Repository>
+    <Repository>
+      <Anchor>AllRecent</Anchor>
+      <Path>C:\Development\gitextensions\GitExtensionsDoc\</Path>
+    </Repository>
+  </Repositories>
+</RepositoryHistory>

@@ -1,0 +1,19 @@
+<Project>
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory)\.., Directory.Build.props))\Directory.Build.props" />
+
+  <PropertyGroup>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <DebugType>full</DebugType>
+
+    <CodeAnalysisRuleSet>$(RepoRoot)\eng\GitExtensionsTest.ruleset</CodeAnalysisRuleSet>
+
+    <!-- To be removed when NRT annotations are complete -->
+    <Nullable>annotations</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- CVE-2019-0820, see https://github.com/advisories/GHSA-cmhx-cq75-c4mj -->
+    <PackageReference Include="System.Text.RegularExpressions" />
+  </ItemGroup>
+
+</Project>

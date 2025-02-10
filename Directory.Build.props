@@ -1,25 +1,43 @@
 <Project>
-  <Import Project="scripts\RepoLayout.props" />
-  <Import Project="scripts\Tests.props" />
+  <Import Project="eng\RepoLayout.props" />
+  <Import Project="eng\Tests.props" />
 
   <PropertyGroup>
-    <LangVersion>9</LangVersion>
+    <LangVersion>12</LangVersion>
     <NoWarn>$(NoWarn);1573;1591;1712</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Nullable>enable</Nullable>
 
+    <ImplicitUsings>enable</ImplicitUsings>
     <UseWindowsForms>true</UseWindowsForms>
-    <TargetFramework>net5.0-windows</TargetFramework>
-    <Prefer32Bit>false</Prefer32Bit>
+    <TargetFramework>$(SolutionTargetFramework)</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)GitExtensions.ruleset</CodeAnalysisRuleSet>
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)eng\GitExtensions.ruleset</CodeAnalysisRuleSet>
+
+    <!-- More information: https://aka.ms/msbuild/net8-binaryformatter -->
+    <GenerateResourceWarnOnBinaryFormatterUse>false</GenerateResourceWarnOnBinaryFormatterUse>
+
+    <!-- SourceLink: https://github.com/dotnet/sourcelink -->
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <DebugType>embedded</DebugType>
 
     <!-- TODO once all project migrated to SDK-style, remove this and move properties to Directory.Build.props -->
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 
-    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
-
     <IsPublishable>false</IsPublishable>
+
+    <!-- Set the target platform manually to be: x64 (default), x86, arm64 -->
+    <TargetPlatform Condition=" '$(TargetPlatform)' == '' ">x64</TargetPlatform>
+
+    <!-- Opt in to build acceleration in VS (from 17.5 onwards): https://github.com/dotnet/project-system/blob/main/docs/build-acceleration.md -->
+    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <!-- https://learn.microsoft.com/nuget/consume-packages/Central-Package-Management -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -45,16 +63,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="$(MSBuildThisFileDirectory)scripts\stylecop.json">
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)eng\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
-    <AdditionalFiles Include="$(MSBuildThisFileDirectory)scripts\vs-threading.MainThreadAssertingMethods.txt">
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)eng\vs-threading.MainThreadAssertingMethods.txt">
       <Visible>False</Visible>
     </AdditionalFiles>
-    <AdditionalFiles Include="$(MSBuildThisFileDirectory)scripts\vs-threading.MainThreadSwitchingMethods.txt">
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)eng\vs-threading.MainThreadSwitchingMethods.txt">
       <Visible>False</Visible>
     </AdditionalFiles>
-    <AdditionalFiles Include="$(MSBuildThisFileDirectory)scripts\vs-threading.TypesRequiringMainThread.txt">
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)eng\vs-threading.TypesRequiringMainThread.txt">
       <Visible>False</Visible>
     </AdditionalFiles>
   </ItemGroup>
